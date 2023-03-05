@@ -1,0 +1,10 @@
+.solution {
+  &__actions {
+    display: flex;
+    justify-content: space-evenly;
+
+    .button {
+      width: 200px;
+    }
+  }
+}
