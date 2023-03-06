@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Button from "../components/Button";
-import ProgressBar from "../components/ProgressBar";
+import Button from "../../../components/Button";
+import ProgressBar from "../../../components/ProgressBar";
 import "./Solution.scss";
 
 const REQUEST_TIMEOUT_SECONDS = 15;
