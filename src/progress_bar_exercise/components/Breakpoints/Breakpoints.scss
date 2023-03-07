@@ -1,0 +1,11 @@
+.breakpoints {
+  margin: 30px 0;
+  height: 70px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+
+  &__input {
+    margin-bottom: 10px;
+  }
+}
