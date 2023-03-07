@@ -3,30 +3,30 @@ import Button from "../../../components/Button";
 import ProgressBar from "../../../components/ProgressBar";
 import "./Solution.scss";
 
-const REQUEST_TIMEOUT_SECONDS = 15;
 const HANGING_BREAKPOINT = 90;
+const PROGRESS_PER_SECOND = 6; // For a 15s request hanging at 90%, we need to increase 6% every second
 
 const Solution = () => {
   const [isRequestActive, setIsRequestActive] = useState(false);
-  const [isRequestCompleted, setIsRequestCompleted] = useState(false);
-  const [currentRequestTime, setCurrentRequestTime] = useState(0);
+  const [, setIsRequestCompleted] = useState(false);
+  const [currentProgress, setCurrentProgress] = useState(0);
 
   useEffect(() => {
-    if (isRequestActive && currentRequestTime < REQUEST_TIMEOUT_SECONDS) {
+    if (isRequestActive && currentProgress < HANGING_BREAKPOINT) {
       const timer = setInterval(() => {
-        setCurrentRequestTime(
-          (prevCurrentRequestTime) => prevCurrentRequestTime + 1
+        setCurrentProgress(
+          (prevCurrentProgress) => prevCurrentProgress + PROGRESS_PER_SECOND
         );
       }, 1000);
 
       return () => clearTimeout(timer);
     }
-  }, [isRequestActive, currentRequestTime]);
+  }, [isRequestActive, currentProgress]);
 
   const handleStartRequest = () => {
     if (!isRequestActive) {
       setIsRequestActive(true);
-      setCurrentRequestTime(0);
+      setCurrentProgress(0);
       setIsRequestCompleted(false);
     }
   };
@@ -34,18 +34,12 @@ const Solution = () => {
   const handleFinishRequest = () => {
     setIsRequestActive(false);
     setIsRequestCompleted(true);
-  };
-
-  const calculateProgress = () => {
-    if (isRequestCompleted) {
-      return 100;
-    }
-    return (currentRequestTime * HANGING_BREAKPOINT) / REQUEST_TIMEOUT_SECONDS;
+    setCurrentProgress(100);
   };
 
   return (
     <div className="solution">
-      <ProgressBar progress={calculateProgress()} />
+      <ProgressBar progress={currentProgress} />
       <div className="solution__actions">
         <Button
           color="success"
