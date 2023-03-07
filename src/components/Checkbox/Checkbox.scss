@@ -1,0 +1,27 @@
+@import "src/shared_styles/colors.scss";
+
+.checkbox {
+  margin-bottom: 10px;
+
+  &__input {
+    /* removing default appearance */
+    -webkit-appearance: none;
+    appearance: none;
+    /* creating a custom design */
+    width: 15px;
+    height: 15px;
+    border: 1px solid $green;
+    border-radius: 4px;
+    margin: 0 10px 0 0;
+    cursor: pointer;
+
+    &:checked {
+      background-color: $green;
+    }
+
+    &:disabled {
+        border: 1px solid $gray;
+        cursor: not-allowed;
+    }
+  }
+}
