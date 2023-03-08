@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { HANGING_BREAKPOINT, PROGRESS_PER_SECOND} from '../../constants';
+import { getBreakpoints } from '../../utils';
 import Button from "../../../components/Button";
 import ProgressBar from "../../../components/ProgressBar";
 import Breakpoints from "../Breakpoints/Breakpoints";
 import "./Solution.scss";
-
-const HANGING_BREAKPOINT = 90;
-const PROGRESS_PER_SECOND = 6; // For a 15s request hanging at 90%, we need to increase 6% every second
 
 const Solution = () => {
   const [isRequestActive, setIsRequestActive] = useState(false);
@@ -62,13 +61,7 @@ const Solution = () => {
   };
 
   const updateBreakpoints = (values) => {
-    const newBreakpoints = values
-      .replace(" ", "")
-      .split(",")
-      .map((value) => parseInt(value, 10))
-      .filter((value) => value > 0 && value < HANGING_BREAKPOINT)
-      .sort((a, b) => a - b);
-    setBreakpoints(newBreakpoints);
+    setBreakpoints(getBreakpoints(values));
   };
 
   return (
